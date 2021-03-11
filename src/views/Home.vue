@@ -1,31 +1,33 @@
 <template>
-<v-container class="d-flex flex-column  ">
-  <v-layout class="mt-2 justify-center ">
-      <v-btn large to="/meetups" class="info mr-sm-10">
-        Explore Meetups
-      </v-btn>
-      <v-btn large to="/meetups" class="info ">
-        Organize Meetup
-      </v-btn>
-  </v-layout>
-  <v-layout  class= "mt-3">
-      <v-carousel>
-        <v-carousel-item
-            v-for="meetup in meetups"
-            :key="meetup.id"
-            :src="meetup.imgurl"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-        >
-          <div class="title">{{meetup.title}}</div>
-        </v-carousel-item>
-      </v-carousel>
-  </v-layout>
-  <v-layout class="mt-3 text-sm-center">
-    <p>Join our awesome meetups</p>
-  </v-layout>
-
-</v-container>
+  <v-container >
+    <v-row class="wrap">
+      <v-col class="xs12 col-sm-6 text-sm-center text-sm-right"  >
+        <v-btn large text to="/meetups" class="info">
+          Explore Meetups
+        </v-btn>
+      </v-col>
+      <v-col class="xs12 col-sm-6 text-sm-center text-sm-left">
+        <v-btn large text  to="/meetups/new" class="info">
+          Organize Meetups
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row >
+        <v-col class="xs12 " >
+          <v-carousel>
+            <v-carousel-item
+                v-for="meetup in meetups"
+                :key="meetup.id"
+                :src="meetup.imgurl"
+                reverse-transition="fade-transition"
+                transition="fade-transition"
+            >
+              <div class="title">{{meetup.title}}</div>
+            </v-carousel-item>
+          </v-carousel>
+        </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -33,6 +35,18 @@ export default {
   name: "Home",
   components: {
 
+  },
+  computed: {
+    height() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 200
+        case 'sm': return 300
+        case 'md': return 300
+        case 'lg': return 300
+        case 'xl': return 350
+      }
+      return 300
+    }
   },
   data() {
     return {
@@ -52,10 +66,11 @@ export default {
 <style scoped>
 .title {
   position: absolute;
+  right: 400px;
   bottom: 50px;
-  background-color: rgba(0,0,0,0.3) ;
-  font-size: 2em;
+  background-color: rgba(0,0,0,0.3);
   color: white;
+  font-size: 2em;
   padding: 20px;
 }
 </style>

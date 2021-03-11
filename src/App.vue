@@ -6,11 +6,11 @@
           dense
           class="primary">
         <v-app-bar-nav-icon
-            @click.native.stop = "showNav = !showNav"
+            @click.stop = "showNav = !showNav"
             class="hidden-sm-and-up"
         ></v-app-bar-nav-icon>
         <v-toolbar-title>
-          <router-link to="/" tag="span" style="cursor : pointer">Dev Meetup</router-link>
+          <router-link to="/" tag="span">Dev Meetup</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
@@ -36,9 +36,9 @@
       <v-list>
         <v-list-item v-for="item in menuItems"
                      :key="item.title"
-                     router
                      :to="item.link"
-                     class="text-decoration-none"
+                     link
+
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>

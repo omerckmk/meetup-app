@@ -1,31 +1,36 @@
 <template>
-  <v-app>
-    <v-toolbar dark class="primary">
-      <v-app-bar-nav-icon
-          @click.native.stop="showNav = !showNav"
-          class="hidden-sm-and-up"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Dev Meetup</router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn
-            class="text-decoration-none"
-            text
-            v-for="item in menuItems"
-            :key="item.title"
-            router
-            :to="item.link"
-        >
-
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
-        </v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+  <v-app >
+    <div>
+      <v-toolbar
+          dark
+          dense
+          class="primary">
+        <v-app-bar-nav-icon
+            @click.native.stop = "showNav = !showNav"
+            class="hidden-sm-and-up"
+        ></v-app-bar-nav-icon>
+        <v-toolbar-title>
+          <router-link to="/" tag="span" style="cursor : pointer">Dev Meetup</router-link>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-xs-only">
+          <v-btn
+              class="text-decoration-none"
+              text
+              v-for="item in menuItems"
+              :key="item.title"
+              router
+              :to="item.link"
+          >
+            <v-icon left dark>{{ item.icon }}</v-icon>
+            {{ item.title }}
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+    </div>
     <v-navigation-drawer
         temporary
+        absolute
         v-model="showNav"
     >
       <v-list>
@@ -71,6 +76,7 @@ export default {
 };
 </script>
 <style lang="sass">
+
 @import '../node_modules/vuetify/src/styles/main'
 
 </style>

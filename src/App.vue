@@ -9,7 +9,7 @@
             @click.stop = "showNav = !showNav"
             class="hidden-sm-and-up"
         ></v-app-bar-nav-icon>
-        <v-toolbar-title>
+        <v-toolbar-title style="cursor: pointer">
           <router-link to="/" tag="span">Dev Meetup</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>

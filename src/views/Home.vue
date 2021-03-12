@@ -14,13 +14,15 @@
     </v-row>
     <v-row >
         <v-col class="xs12 " >
-          <v-carousel>
+          <v-carousel >
             <v-carousel-item
+                style="cursor: pointer"
                 v-for="meetup in meetups"
                 :key="meetup.id"
                 :src="meetup.imgurl"
                 reverse-transition="fade-transition"
                 transition="fade-transition"
+                @click="onLoadMeetup(meetup.id)"
             >
               <div class="title">{{meetup.title}}</div>
             </v-carousel-item>
@@ -37,28 +39,13 @@ export default {
 
   },
   computed: {
-    height() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return 200
-        case 'sm': return 300
-        case 'md': return 300
-        case 'lg': return 300
-        case 'xl': return 350
-      }
-      return 300
+    meetups () {
+      return  this.$store.getters.featuredMeetups
     }
   },
-  data() {
-    return {
-      meetups: [
-        {imgurl : 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg' , id : '1',
-          title : 'Meetup in New York'},
-        {imgurl : 'https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg' , id : '2',
-          title : 'Meetup in Paris'},
-        {imgurl : 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Istanbul_Fatih_Sultan_Mehmet_Bridge_IMG_7247_1725.jpg' , id : '3',
-          title : 'Meetup in Istanbul'}
-
-      ]
+  methods: {
+    onLoadMeetup(id) {
+        this.$router.push('/meetup/'+id);
     }
   },
 };

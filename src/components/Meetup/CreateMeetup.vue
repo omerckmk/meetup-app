@@ -10,7 +10,7 @@
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(onCreateMeetup)">
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col class="offset-sm-3" sm="6" cols="xs12">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="title" rules="required">
                   <v-text-field
                       id="title"
@@ -24,7 +24,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col class=" offset-sm-3"  sm="6" cols="xs12">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="location" rules="required">
                   <v-text-field
                       id="location"
@@ -38,7 +38,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col class="offset-sm-3"  sm="6" cols="xs12">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="imageUrl" rules="required">
                   <v-text-field
                       id="image-url"
@@ -53,7 +53,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col  sm="6" cols="xs12" class="offset-sm-3">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="description" rules="required">
                   <v-textarea
                       id="description"
@@ -68,27 +68,25 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col  sm="6" cols="xs12" class=" offset-sm-3">
                 <img :src=imageUrl alt="">
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col  sm="6" cols="xs12" class=" offset-sm-3">
                 <h4>Choose a Date & Time</h4>
               </v-col>
             </v-row>
             <v-row class="mb-2">
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col sm="4" cols="xs12" class="offset-sm-3">
                 <v-date-picker v-model="date"></v-date-picker>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-3">
+              <v-col sm="8" cols="xs12" class="offset-sm-3">
                 <v-time-picker v-model="time" format="24hr"></v-time-picker>
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="xs12 col-sm-6 offset-sm-7">
+              <v-col sm="6" cols="xs12" class=" offset-sm-7">
                 <v-btn class="primary" type="submit">Create Meetup</v-btn>
               </v-col>
             </v-row>

@@ -8,7 +8,7 @@
               <ValidationObserver v-slot="{ handleSubmit }">
                 <form @submit.prevent="handleSubmit(onSignUp)">
                   <v-row>
-                    <v-col cols="xs12" sm="6">
+                    <v-col cols="xs12" >
                       <ValidationProvider v-slot="{ errors }" mode="passive" name="email" rules="required|email">
                         <v-text-field id="email"
                                       v-model="email"
@@ -79,11 +79,21 @@ export default {
   computed: {
     comparePasswords() {
       return this.password !== this.confirmPassword ? 'Password do not match' : '';
+    },
+    user () {
+      return this.$store.getters.user
+    }
+  },
+  watch: {
+    user(value) {
+      if ( value !== null && value !== undefined) {
+        this.$router.push('/');
+      }
     }
   },
   methods: {
     onSignUp() {
-
+      this.$store.dispatch('signUserup', {email : this.email , password : this.password})
     }
   },
 }

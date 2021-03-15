@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import firebase from 'firebase/app';
 
 Vue.use(Vuex);
 
@@ -15,14 +16,15 @@ export default new Vuex.Store({
                 description: 'adasdöasödaösdasdasd'
             }
         ],
-        user: {
-            id: 'adana',
-            registeredMeetups: ['asdasd']
-        }
+        user: null
+
     },
     mutations: {
         createMeetup(state, payload) {
             state.loadedMeetups.push(payload)
+        },
+        setUser(state, payload) {
+            state.user = payload
         }
     },
     actions: {
@@ -36,6 +38,40 @@ export default new Vuex.Store({
                 id: "123"
             }
             commit('createMeetup', formModel)
+        },
+        signUserup({commit}, payload) {
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    user => {
+                        const newUser = {
+                            id: user.uid,
+                            registeredMeetups: []
+                        }
+                        commit('setUser', newUser);
+                    }
+                )
+                .catch(
+                    error => {
+                        console.log(error);
+                    }
+                )
+        },
+        signUserin({commit}, payload) {
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    user => {
+                        const newUser = {
+                            id: user.uid,
+                            registeredMeetups: []
+                        }
+                        commit('setUser', newUser);
+                    }
+                )
+                .catch(
+                    error => {
+                        console.log(error)
+                    }
+                )
         }
     },
     modules: {},
@@ -50,7 +86,8 @@ export default new Vuex.Store({
         },
         loadedMeetup: (state) => (id) => {
             return state.loadedMeetups.find(meetup => meetup.id === id)
-        }
+        },
+        user: state => state.user
 
 
     },

@@ -4,15 +4,15 @@
     <v-col class="xs12">
       <v-card>
         <v-card-title>
-          <h3 class="text--primary">{{ meetup.title }}</h3>
+          <h3 class="text--primary">{{ meetup.title }} {{meetup.id}}</h3>
         </v-card-title>
         <v-img
-        :src=meetup.imgurl
+        :src=meetup.imageUrl
         height="400px">
         </v-img>
         <v-card-text>
-          <div class="info--text">{{ meetup.date }} - Where it takes place</div>
-          <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi aspernatur aut blanditiis consectetur corporis, doloribus dolorum error exercitationem illum ipsa itaque laborum molestiae nobis quaerat repellat reprehenderit ut voluptas!
+          <div class="info--text">{{ meetup.date | date }} -{{ meetup.location }}</div>
+          <div>{{meetup.description}}
           </div>
         </v-card-text>
         <v-card-actions>
@@ -27,9 +27,8 @@
 
 <script>
 export default {
-name: "Meetup",
-  props : ['id']
-  ,
+  name: "Meetup",
+  props :['id'],
   computed: {
     meetup() {
       return this.$store.getters.loadedMeetup(this.id);

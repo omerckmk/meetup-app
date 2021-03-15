@@ -7,23 +7,12 @@ export default new Vuex.Store({
     state: {
         loadedMeetups: [
             {
-                imgurl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
-                id: '1',
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
+                id: "1",
                 title: 'Meetup in New York',
-                date: '2020-03-16'
-
-            },
-            {
-                imgurl: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',
-                id: '2',
-                title: 'Meetup in Paris',
-                date: '2020-03-17'
-            },
-            {
-                imgurl: 'https://i.hurimg.com/i/hdn/75/0x0/5ab0ff9ad3806d12540aada2.jpg',
-                id: '3',
-                title: 'Meetup in Istanbul',
-                date: '2020-03-23'
+                date: '2020-03-16',
+                location: 'New York',
+                description: 'adasdöasödaösdasdasd'
             }
         ],
         user: {
@@ -31,21 +20,40 @@ export default new Vuex.Store({
             registeredMeetups: ['asdasd']
         }
     },
-    mutations: {},
-    actions: {},
+    mutations: {
+        createMeetup(state, payload) {
+            state.loadedMeetups.push(payload)
+        }
+    },
+    actions: {
+        createMeetup({commit}, payload) {
+            const formModel = {
+                title: payload.title,
+                location: payload.location,
+                imageUrl: payload.imageUrl,
+                description: payload.description,
+                date: payload.date,
+                id: "123"
+            }
+            commit('createMeetup', formModel)
+        }
+    },
     modules: {},
     getters: {
-        LoadedMeetups: state => {
+        loadedMeetups: state => {
             return state.loadedMeetups.sort(
                 (meetupA, meetupB) =>
-                    meetupA.title > meetupB.title )
+                    meetupA.date > meetupB.date)
         },
         featuredMeetups: (state, getters) => {
-            return getters.LoadedMeetups.slice(0, 5)
+            return getters.loadedMeetups.slice(0, 5)
         },
-        loadedMeetup: (state) => (meetupId) => {
-            return state.loadedMeetups.find(meetup => meetup.id === meetupId)
-        },
+        loadedMeetup: (state) => (id) => {
+            return state.loadedMeetups.find(meetup => meetup.id === id)
+        }
 
-    }
+
+    },
+
+
 });

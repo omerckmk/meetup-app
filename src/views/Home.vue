@@ -19,7 +19,7 @@
                 style="cursor: pointer"
                 v-for="meetup in meetups"
                 :key="meetup.id"
-                :src="meetup.imgurl"
+                :src="meetup.imageUrl"
                 reverse-transition="fade-transition"
                 transition="fade-transition"
                 @click="onLoadMeetup(meetup.id)"

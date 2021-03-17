@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import alert from "@/components/Shared/alert";
+
 import DateFilter from './filter/date';
 
 import firebase from "firebase";
@@ -25,6 +27,7 @@ Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
 //-------------
 Vue.filter('date', DateFilter)
+Vue.component('app-alert' , alert )
 Vue.config.productionTip = false;
 
 new Vue({

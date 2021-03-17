@@ -1,39 +1,41 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="xs12 col-sm-6 offset-sm-3">
+      <v-col v-if="error" sm="6" cols="xs12" class="offset-sm-3">
+        <app-alert :text="error.message" @dismissed="onDismissed"></app-alert>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col sm="6" cols="xs12"  class="offset-sm-3">
         <v-card>
           <v-card-text>
             <v-container>
               <ValidationObserver v-slot="{ handleSubmit }">
                 <form @submit.prevent="handleSubmit(onSignUp)">
                   <v-row>
-                    <v-col cols="xs12" >
+                    <v-col cols="xs12">
                       <ValidationProvider v-slot="{ errors }" mode="passive" name="email" rules="required|email">
                         <v-text-field id="email"
                                       v-model="email"
                                       label="E-mail"
                                       name="email"
                                       type="email">
-
                         </v-text-field>
                         <span>{{ errors[0] }}</span>
                       </ValidationProvider>
                     </v-col>
                   </v-row>
                   <v-row>
-                    <v-col class="xs12">
+                    <v-col cols="xs12">
                       <ValidationProvider v-slot="{ errors }" mode="passive" name="password" rules="required">
                         <v-text-field id="password"
                                       v-model="password"
                                       label="Password"
                                       name="password"
                                       type="password">
-
                         </v-text-field>
                         <span>{{ errors[0] }}</span>
                       </ValidationProvider>
-
                     </v-col>
                   </v-row>
                   <v-row>
@@ -48,12 +50,13 @@
                         </v-text-field>
                         <span>{{ errors[0] }}</span>
                       </ValidationProvider>
-
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col class="xs12">
-                      <v-btn type="submit">Sign up</v-btn>
+                      <v-btn type="submit" :loading="loading" :disabled="loading">
+                        Sign up
+                      </v-btn>
                     </v-col>
                   </v-row>
                 </form>
@@ -80,20 +83,30 @@ export default {
     comparePasswords() {
       return this.password !== this.confirmPassword ? 'Password do not match' : '';
     },
-    user () {
+    user() {
       return this.$store.getters.user
+    },
+    error() {
+      return this.$store.getters.error
+    },
+    loading() {
+      return this.$store.getters.loading
     }
   },
   watch: {
     user(value) {
-      if ( value !== null && value !== undefined) {
+      if (value !== null && value !== undefined) {
         this.$router.push('/');
       }
     }
   },
   methods: {
     onSignUp() {
-      this.$store.dispatch('signUserup', {email : this.email , password : this.password})
+      this.$store.dispatch('signUserup', {email: this.email, password: this.password})
+    },
+    onDismissed() {
+      console.log('Dismissed Alert!')
+      this.$store.dispatch('clearError')
     }
   },
 }

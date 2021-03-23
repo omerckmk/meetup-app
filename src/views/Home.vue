@@ -1,19 +1,30 @@
 <template>
   <v-container >
-    <v-row class="wrap">
-      <v-col class="xs12 col-sm-6 text-sm-center text-sm-right"  >
+    <v-row class="wrap mt-1">
+      <v-col cols="xs12" sm="6" class="text-sm-center text-sm-right"  >
         <v-btn large text to="/meetups" class="info">
           Explore Meetups
         </v-btn>
       </v-col>
-      <v-col class="xs12 col-sm-6 text-sm-center text-sm-left">
+      <v-col cols="xs12" sm="6" class="text-sm-center text-sm-left">
         <v-btn large text  to="/meetups/new" class="info">
           Organize Meetups
         </v-btn>
       </v-col>
     </v-row>
-    <v-row >
-        <v-col class="xs12 " >
+    <v-row>
+      <v-col cols="xs12" class="text-center">
+        <v-progress-circular
+            indeterminate
+            color="primary"
+            :width="7"
+            :size="70"
+            v-if="loading"
+        ></v-progress-circular>
+      </v-col>
+    </v-row>
+    <v-row class="wrap mt-0" v-if="!loading">
+        <v-col cols="xs12" >
           <v-carousel >
             <v-carousel-item
                 style="cursor: pointer"
@@ -41,6 +52,9 @@ export default {
   computed: {
     meetups () {
       return  this.$store.getters.featuredMeetups
+    },
+    loading() {
+      return this.$store.getters.loading
     }
   },
   methods: {

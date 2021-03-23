@@ -6,22 +6,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loadedMeetups: [
-            {
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
-                id: "1",
-                title: 'Meetup in New York',
-                date: '2020-03-16',
-                location: 'New York',
-                description: 'adasdöasödaösdasdasd'
-            }
-        ],
+        loadedMeetups: [],
         user: null,
         loading : false,
         error : null
-
     },
     mutations: {
+        setLoadedMeetups (state , payload) {
+            state.loadedMeetups = payload
+        },
         createMeetup(state, payload) {
             state.loadedMeetups.push(payload)
         },
@@ -40,16 +33,53 @@ export default new Vuex.Store({
 
     },
     actions: {
+        loadMeetups ({commit}) {
+            commit('setLoading' , true)
+            firebase.database().ref('meetups').once('value')
+                .then((data) => {
+                    const meetups = []
+                    const obj = data.val()
+                    for (let key in obj){
+                        meetups.push({
+                            id : key ,
+                            title : obj[key].title,
+                            description : obj[key].description,
+                            imageUrl: obj[key].imageUrl,
+                            date : obj[key].date
+                        })
+                    }
+                    commit('setLoadedMeetups' , meetups)
+                    commit('setLoading' , false)
+                })
+                .catch(
+                    (error) => {
+                        console.log(error)
+                        commit('setLoading' , true)
+                    }
+                )
+
+        },
         createMeetup({commit}, payload) {
             const formModel = {
                 title: payload.title,
                 location: payload.location,
                 imageUrl: payload.imageUrl,
                 description: payload.description,
-                date: payload.date,
-                id: "123"
+                date: payload.date
             }
-            commit('createMeetup', formModel)
+            firebase.database().ref("meetups" ).push(formModel)
+                .then((data) => {
+                    const key = data.key
+                    commit('createMeetup', {
+                        ...formModel,
+                        id : key
+                    })
+
+                })
+                .catch((error) =>{
+                    console.log(error)
+                })
+
         },
         signUserup({commit}, payload) {
             commit('setLoading' , true);
@@ -91,7 +121,6 @@ export default new Vuex.Store({
                     error => {
                         commit('setLoading' , false);
                         commit('setError' , error);
-                        console.log(error)
                     }
                 )
         },
@@ -104,9 +133,7 @@ export default new Vuex.Store({
     modules: {},
     getters: {
         loadedMeetups: state => {
-            return state.loadedMeetups.sort(
-                (meetupA, meetupB) =>
-                    meetupA.date > meetupB.date)
+            return state.loadedMeetups.sort((a, b) => new Date(a.date)- new Date(b.date))
         },
         featuredMeetups: (state, getters) => {
             return getters.loadedMeetups.slice(0, 5)

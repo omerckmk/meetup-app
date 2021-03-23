@@ -39,12 +39,14 @@ new Vue({
     firebase.initializeApp({
       apiKey: "AIzaSyBY6ur5tC0yznylF1Q_mJHCPIE02T8qUwc",
       authDomain: "devmeetup-918b8.firebaseapp.com",
+      databaseURL: "https://devmeetup-918b8-default-rtdb.firebaseio.com",
       projectId: "devmeetup-918b8",
       storageBucket: "devmeetup-918b8.appspot.com",
       messagingSenderId: "342533600578",
-      appId: "1:342533600578:web:41e51eddbbe2d7aae044db",
-      measurementId: "G-0YNVJE5X2L"
+      appId: "1:342533600578:web:41ed2203f6a4d14be044db",
+      measurementId: "G-4M99WFCBLF"
     })
+    this.$store.dispatch('loadMeetups')
   }
 
 }).$mount("#app");

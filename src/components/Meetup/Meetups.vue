@@ -1,17 +1,17 @@
 <template>
   <v-container>
     <v-row class="wrap " v-for="meetup in meetups" :key="meetup.id">
-      <v-col class="xs12 col-sm-10 col-md-8 offset-sm-1 offset-md-2" >
+      <v-col cols="xs12" sm="10" md="8" class="offset-sm-1 offset-md-2" >
         <v-card class="info">
           <v-container fluid>
             <v-row>
-              <v-col class="xs5 col-sm-4 col-md-3">
+              <v-col cols="xs5" sm="4" md="3" >
                 <v-img
                     height="130px"
                     :src=meetup.imageUrl>
                 </v-img>
               </v-col>
-              <v-col class="xs7 col-sm-8 col-md-9">
+              <v-col cols="xs7" sm="8" md="9" >
                 <v-card-title class="text--primary">
                   <div>
                     <h5 class="white--text mb-0 ">{{ meetup.title }}</h5>

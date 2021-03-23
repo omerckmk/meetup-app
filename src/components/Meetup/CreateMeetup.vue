@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="xs12 col-sm-6 offset-sm-3  ">
+      <v-col cols="xs12" sm="6" class="offset-sm-3">
         <h2>Create new Meetup</h2>
       </v-col>
     </v-row>
@@ -10,7 +10,7 @@
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(onCreateMeetup)">
             <v-row>
-              <v-col class="offset-sm-3" sm="6" cols="xs12">
+              <v-col cols="xs12" sm="6"  class="offset-sm-3">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="title" rules="required">
                   <v-text-field
                       id="title"
@@ -24,7 +24,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class=" offset-sm-3"  sm="6" cols="xs12">
+              <v-col  cols="xs12" sm="6" class="offset-sm-3">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="location" rules="required">
                   <v-text-field
                       id="location"
@@ -38,7 +38,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col class="offset-sm-3"  sm="6" cols="xs12">
+              <v-col  cols="xs12" sm="6" class="offset-sm-3">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="imageUrl" rules="required">
                   <v-text-field
                       id="image-url"
@@ -53,7 +53,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col  sm="6" cols="xs12" class="offset-sm-3">
+              <v-col   cols="xs12" sm="6" class="offset-sm-3">
                 <ValidationProvider v-slot="{ errors }" mode="passive" name="description" rules="required">
                   <v-textarea
                       id="description"
@@ -68,8 +68,8 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col  sm="6" cols="xs12" class=" offset-sm-3">
-                <img :src=imageUrl alt="">
+              <v-col   cols="xs12" sm="6" class=" offset-sm-3">
+                <img :src=imageUrl height="175px">
               </v-col>
             </v-row>
             <v-row>
@@ -86,7 +86,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col sm="6" cols="xs12" class=" offset-sm-7">
+              <v-col cols="xs12" sm="6" class=" offset-sm-7">
                 <v-btn class="primary" type="submit">Create Meetup</v-btn>
               </v-col>
             </v-row>
